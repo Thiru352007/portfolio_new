@@ -1,7 +1,3 @@
-/* =====================================================
-   MOBILE NAVIGATION
-===================================================== */
-
 const menuToggle =
     document.getElementById("menuToggle");
 
@@ -474,4 +470,26 @@ document.addEventListener(
         }
 
     }
+);
+// Resume download
+document.querySelectorAll('a[download]').forEach((button) => {
+    button.addEventListener('click', function (event) {
+        const resumePath = './Thirukumaran_P_Resume_v10.pdf';
+
+        // Check whether the browser can access the resume
+        fetch(resumePath, { method: 'HEAD' })
+            .then(response => {
+                if (!response.ok) {
+                    event.preventDefault();
+                    alert(
+                        'Resume file was not found. Please make sure Thirukumaran_P_Resume_v10.pdf is in the same folder as index.html.'
+                    );
+                }
+            })
+            .catch(() => {
+                // Some local file:// browsers block fetch requests.
+                // Allow the normal download link to continue.
+            });
+    });
+}
 );
